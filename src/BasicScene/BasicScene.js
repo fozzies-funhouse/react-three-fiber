@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-// import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import {
   Canvas, // Canvaas element
@@ -66,8 +65,6 @@ const Box = () => {
         onClick={() => setActive(!active)}
         scale={props.scale}
       >
-        <ambientLight intensity={0.1} />
-        <spotLight position={[0, 5, 10]} penumbra={1} castShadow />
         <boxBufferGeometry attach='geometry' args={[1, 1, 1]} />
         {/* <a.meshBasicMaterial attach='material' color={props.color} /> */}
         <a.meshPhysicalMaterial attach='material' color={props.color} />
@@ -86,7 +83,9 @@ function BasicScene() {
       // this will enable shadows in our canvas
     >
       {/* Fog element */}
-      <fog attach='fog' args={['white', 5, 15]} />
+      <fog attach='fog' args={['lightgray', 5, 15]} />
+      <ambientLight intensity={0.1} />
+      <spotLight position={[0, 5, 10]} penumbra={1} castShadow />
       <Box />
       <Plane />
       <Controls />

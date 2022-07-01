@@ -6,8 +6,8 @@ import Models from './SecondScene/Models';
 const root = createRoot(document.getElementById('root'));
 root.render(
   <>
-    {/* <BasicScene /> */}
-    <Models />
+    <BasicScene />
+    {/* <Models /> */}
   </>
 );
 
