@@ -38,6 +38,9 @@ const SpaceShip = () => {
     GLTFLoader,
     '../space_exploration_wlp_series_8/scene.gltf'
   );
+
+  console.log(gltf);
+
   return (
     <Suspense fallback={null}>
       <primitive object={gltf.scene} />
@@ -51,6 +54,7 @@ function BasicScene() {
   return (
     <>
       <h1>React Three Fiber</h1>
+
       <Canvas
         camera={{ position: [-5, 5, 20] }}
         shadows

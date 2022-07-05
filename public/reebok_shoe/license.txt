@@ -1,0 +1,11 @@
+Model Information:
+* title:	Reebok Shoe by DigitWorlds.com
+* source:	https://sketchfab.com/3d-models/reebok-shoe-by-digitworldscom-70d77395535746ed87240c9127945325
+* author:	Przemek Gesicki - DigitWorlds (https://sketchfab.com/DigitWorlds)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Reebok Shoe by DigitWorlds.com" (https://sketchfab.com/3d-models/reebok-shoe-by-digitworldscom-70d77395535746ed87240c9127945325) by Przemek Gesicki - DigitWorlds (https://sketchfab.com/DigitWorlds) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
