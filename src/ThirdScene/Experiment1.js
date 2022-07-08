@@ -1,52 +1,27 @@
-import React, { useRef, Suspense } from 'react';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import React, { Suspense } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-
+import {
+  Environment,
+  PresentationControls,
+  Text,
+  MeshReflectorMaterial,
+} from '@react-three/drei';
 import {
   Canvas, // Canvaas element
-  useFrame, // useFrame  hook for getting the animation loop each frame
-  extend, // for orbit controls
-  useThree, // threeJS scene hook
   useLoader, // #3D model loader
 } from '@react-three/fiber';
 
 import './Experiment1.css';
 
-// Orbit Controls component
-
-// Orbit controls from three.js
-extend({ OrbitControls });
-
-const Controls = () => {
-  const orbitRef = useRef(); // useRef hook
-  const { camera, gl } = useThree(); // destructuring camera and gl dom from this hook
-
-  useFrame(() => {
-    orbitRef.current.update();
-  });
-
-  return (
-    <orbitControls
-      /*autoRotate*/ args={[camera, gl.domElement]}
-      ref={orbitRef}
-    />
-    // autoRotate also animates.
-  );
-};
-
-// Spaceship Component
+// Shoe Component
 
 const Shoe = () => {
-  const gltf = useLoader(GLTFLoader, '../matcap_shoe/scene.gltf');
-  console.log(gltf);
-  gltf.scene.children[0].position.y = -10;
-  console.log(gltf.scene.children[0].position.y);
+  const gltf = useLoader(GLTFLoader, '../Sneaker/scene.gltf');
+  // console.log(gltf.scene);
+  gltf.scene.scale.set(0.005, 0.005, 0.005);
+  gltf.scene.rotation.y = Math.PI;
 
-  return (
-    <Suspense fallback={null}>
-      <primitive object={gltf.scene} />
-    </Suspense>
-  );
+  return <primitive object={gltf.scene} />;
 };
 
 // React Functional Component
@@ -54,19 +29,50 @@ const Shoe = () => {
 function Experiment1() {
   return (
     <>
-      {/* <h1>React Three Fiber</h1> */}
-
       <Canvas
-        camera={{ position: [-10, 10, 35] }}
+        dpr={[1, 1.5]}
         shadows
-        // this will enable shadows in our canvas
+        camera={{ position: [-5, 14, 20], fov: 50 }}
+        gl={{ alpha: true }}
       >
-        {/* Fog element */}
-        {/* <fog attach='fog' args={['white', 10, 45]} color='black' /> */}
-        <ambientLight intensity={0.1} />
-        <spotLight position={[10, 20, 5]} penumbra={1} castShadow />
-        <Controls />
-        <Shoe />
+        <fog attach='fog' args={['#17171b', 30, 40]} />
+        <color attach='background' args={['#17171b']} />
+        <ambientLight intensity={0.25} />
+        <directionalLight
+          castShadow
+          intensity={2}
+          position={[10, 6, 6]}
+          shadow-mapSize={[1024, 1024]}
+        >
+          <orthographicCamera
+            attach='shadow-camera'
+            left={-20}
+            right={20}
+            top={20}
+            bottom={-20}
+          />
+        </directionalLight>
+        <Suspense fallback={null}>
+          <PresentationControls global rotation={[0, 0, 0]} polar={[0, 0.3]}>
+            <Shoe />
+          </PresentationControls>
+
+          <mesh position={[0, -1.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+            <planeGeometry args={[50, 50]} />
+            <MeshReflectorMaterial
+              blur={[400, 100]}
+              resolution={1024}
+              mixBlur={1}
+              mixStrength={15}
+              depthScale={1}
+              minDepthThreshold={0.85}
+              color='#151515'
+              metalness={0.6}
+              roughness={1}
+            />
+          </mesh>
+          <Environment preset='dawn' />
+        </Suspense>
       </Canvas>
     </>
   );
